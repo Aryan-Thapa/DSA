@@ -70,8 +70,89 @@ Node* getNthFromLast(Node *head, int n)
     {
         temp=temp->next;
     }
-    return temp->data;
+    int ans=temp->data;
+    return ans;
 
+}
+Node* reverse(Node* &head)
+{
+    Node* prev=NULL;
+    Node* curr=head;
+    while(curr!=NULL)
+    {
+       Node* next=curr->next;
+       curr->next=prev;
+       prev=curr;
+       curr=next;
+    }
+    return prev;
+}
+int getlength(Node* &head)
+{
+    int len=0;
+    Node* temp=head;
+    while(temp!=NULL)
+    {
+        temp=temp->next;
+        len++;
+    }
+    return len;
+
+}
+//myapproach
+int getNthFromLast(Node *head, int n)
+{
+    int length=getlength(head);
+    if(head==NULL)
+    {
+        cout<<"linked list is empty"<<endl;
+        return -1;
+    }
+    if(head->next==NULL)
+    {
+        if(n<=length)
+        {
+            int ans=head->data;
+            return ans;
+        }
+        else
+        {
+            return -1;
+        }
+    }
+    if(n>length)
+    {
+        return -1;
+    }
+    head=reverse(head);
+    Node* temp=head;
+    int i=1;
+    while(i<n)
+    {
+        temp=temp->next;
+        i++;
+    }
+    int ans=temp->data;
+    return ans;       
+}
+void* func(Node* &head,int position,int ans)
+{
+    if(head==NULL)
+    {
+        return NULL;
+    }
+    func(head->next,position,ans);
+    if(position==0)
+    {
+        ans=head->data;
+    }
+    position--;
+}
+int getNode(Node* &head,int position)
+{
+    int ans=-1;
+    func(head,position,ans);
+    return -1;
 }
 int main()
 {

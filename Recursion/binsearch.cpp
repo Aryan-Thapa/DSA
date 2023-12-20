@@ -4,6 +4,7 @@ using namespace std;
 bool binarysearch(vector<int>&v, int s,int e,int key)
 {
     //case1 not found
+    //base case
     if(s>e)
     {return false;}
     int mid=s+e/2;
